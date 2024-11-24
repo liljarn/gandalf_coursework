@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: gandalf
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+
+jwt:
+  secret: youshallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpass
+
+grpc:
+  server:
+    port: 9098
+
+minio:
+  bucketName: userprofilepics
+  url: http://localhost:9000
+  access_key: gandalf
+  secret_key: youshallnotpass
