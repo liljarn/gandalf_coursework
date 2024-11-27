@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 import ru.liljarn.gandalf.domain.model.exception.UserNotFoundException
 import ru.liljarn.gandalf.domain.model.dto.UserPrivateData
 import ru.liljarn.gandalf.domain.model.entity.UserDataEntity
-import ru.liljarn.gandalf.api.model.response.UserData
+import ru.liljarn.gandalf.domain.model.dto.UserData
 import ru.liljarn.gandalf.domain.repository.UserDataRepository
 import ru.liljarn.gandalf.support.mapper.toUserData
 import ru.liljarn.gandalf.support.mapper.toUserPrivateData

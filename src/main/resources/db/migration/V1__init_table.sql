@@ -6,5 +6,5 @@ CREATE TABLE user_data(
     first_name  VARCHAR(256)                NOT NULL,
     last_name   VARCHAR(256)                NOT NULL,
     birth_date  DATE                        NOT NULL,
-    photo_url   TEXT                        NOT NULL
+    photo_url   TEXT
 );

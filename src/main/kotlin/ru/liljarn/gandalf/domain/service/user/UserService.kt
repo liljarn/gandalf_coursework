@@ -6,7 +6,7 @@ import ru.liljarn.gandalf.domain.model.exception.UserAlreadyExistsException
 import ru.liljarn.gandalf.domain.model.exception.WrongPasswordException
 import ru.liljarn.gandalf.api.model.request.AuthenticationRequest
 import ru.liljarn.gandalf.api.model.request.RegistrationRequest
-import ru.liljarn.gandalf.api.model.response.UserData
+import ru.liljarn.gandalf.domain.model.dto.UserData
 import ru.liljarn.gandalf.domain.service.encryption.EncryptionService
 import ru.liljarn.gandalf.domain.service.image.ImageService
 import ru.liljarn.gandalf.domain.service.user.component.UserDataComponent
@@ -21,11 +21,14 @@ class UserService(
     private val encryptionService: EncryptionService,
     private val imageService: ImageService
 ) {
+
     fun createUser(request: RegistrationRequest): UUID {
         logger.info { "Start creating user, email=${request.email}" }
-
+        logger.info { request.profileImage?.inputStream }
         val uuid = UUID.randomUUID()
-        val photoUrl = imageService.uploadImage(request.profileImage.inputStream, uuid.toString())
+        val photoUrl = request.profileImage?.let {
+            imageService.uploadImage(request.profileImage.inputStream, uuid.toString())
+        }
         val passwordSalt = encryptionService.generateSalt()
         val hashedPassword = encryptionService.encrypt(request.password, passwordSalt)
 

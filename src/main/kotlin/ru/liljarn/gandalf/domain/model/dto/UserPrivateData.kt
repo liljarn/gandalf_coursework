@@ -11,5 +11,5 @@ data class UserPrivateData(
     val firstName: String,
     val lastName: String,
     val birthDate: LocalDate,
-    val photoUrl: String
+    val photoUrl: String?
 )

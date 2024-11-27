@@ -31,7 +31,7 @@ class UserDataGrpcService(
                 firstName = it.firstName
                 lastName = it.lastName
                 birthdate = it.birthDate.toTimestamp()
-                photoUrl = it.photoUrl
+                photoUrl = it.photoUrl ?: ""
             }
         }
 }

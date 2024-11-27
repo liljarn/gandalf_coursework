@@ -22,3 +22,15 @@ minio:
   url: http://localhost:9000
   access_key: gandalf
   secret_key: youshallnotpass
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /docs/swagger-ui
+
+kafka:
+  server: localhost:29092
+  topics:
+    notification:
+      destination: okarun.notifications

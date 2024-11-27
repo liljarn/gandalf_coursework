@@ -9,5 +9,5 @@ data class RegistrationRequest(
     val firstName: String,
     val lastName: String,
     val birthDate: LocalDate,
-    val profileImage: MultipartFile
+    val profileImage: MultipartFile?
 )

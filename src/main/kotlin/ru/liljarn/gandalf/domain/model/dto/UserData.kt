@@ -1,4 +1,4 @@
-package ru.liljarn.gandalf.api.model.response
+package ru.liljarn.gandalf.domain.model.dto
 
 import java.time.LocalDate
 import java.util.*
@@ -9,5 +9,5 @@ data class UserData(
     val firstName: String,
     val lastName: String,
     val birthDate: LocalDate,
-    val photoUrl: String
+    val photoUrl: String?
 )

@@ -1,32 +1,32 @@
 package ru.liljarn.gandalf.api.rest
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
-import ru.liljarn.gandalf.api.model.response.UserData
+import org.springframework.web.bind.annotation.*
+import ru.liljarn.gandalf.api.model.response.UserResponse
+import ru.liljarn.gandalf.domain.model.exception.UserUnauthorizedException
 import ru.liljarn.gandalf.domain.service.JwtService
 import ru.liljarn.gandalf.domain.service.user.UserService
-import java.util.UUID
+import java.util.*
 
 @RestController
 @RequestMapping("/api/v1/user")
 class UserDataController(
-    private val userService: UserService,
-    private val jwtService: JwtService
+    private val userService: UserService, private val jwtService: JwtService
 ) {
 
     @GetMapping("/profile/self")
-    fun getData(@RequestHeader("Authorization") token: String): UserData =
-        token.replace("Bearer ", "").let {
-            jwtService.getUserId(it).let {
-                userService.getUserData(it)
-            }
-        }
+    fun getData(@RequestHeader("Authorization") token: String?): UserResponse =
+        token?.replace("Bearer ", "")?.let { jwtToken ->
+            UserResponse(userService.getUserData(jwtService.getUserId(jwtToken)), true)
+        } ?: throw UserUnauthorizedException("User didn't provide personal token")
 
     @GetMapping("/profile/{uuid}")
-    fun getUserProfileData(@PathVariable uuid: String): UserData =
-        userService.getUserData(UUID.fromString(uuid))
+    fun getUserProfileData(@RequestHeader("Authorization") token: String?, @PathVariable uuid: String): UserResponse =
+        userService.getUserData(UUID.fromString(uuid)).let { data ->
+            UserResponse(
+                userData = data,
+                self = token?.replace("Bearer ", "")?.let { jwtToken ->
+                    jwtService.getUserId(jwtToken) == data.uuid
+                } ?: false
+            )
+        }
 }

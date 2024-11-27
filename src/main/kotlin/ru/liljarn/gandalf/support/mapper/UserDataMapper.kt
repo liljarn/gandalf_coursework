@@ -1,7 +1,7 @@
 package ru.liljarn.gandalf.support.mapper
 
 import ru.liljarn.gandalf.domain.model.dto.UserPrivateData
-import ru.liljarn.gandalf.api.model.response.UserData
+import ru.liljarn.gandalf.domain.model.dto.UserData
 import ru.liljarn.gandalf.domain.model.entity.UserDataEntity
 
 fun UserDataEntity.toUserData() = UserData(
