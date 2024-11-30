@@ -9,6 +9,9 @@ spring:
   flyway:
     enabled: true
     validate-on-migrate: true
+  config:
+    activate:
+      on-profile: default
 
 jwt:
   secret: youshallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpassyoushallnotpass
@@ -30,7 +33,34 @@ springdoc:
     path: /docs/swagger-ui
 
 kafka:
-  server: localhost:29092
   topics:
     notification:
       destination: okarun.notifications
+  clusters:
+    default:
+      bootstrap-servers:
+        - localhost:29092
+      properties:
+        acks: -1
+        delivery.timeout.ms: 90000
+        batch.size: 10240
+        linger.ms: 100
+        max.in.flight.requests.per.connection: 5
+        enable.idempotence: true
+      producer:
+        client-id: liljarn.gandalf
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      security:
+        protocol: PLAINTEXT
+
+web-clients:
+  clients:
+    booker:
+      destination: http://localhost:8081
+      headers:
+        X-INTERNAL-API: "GANDALF_INTERNAL_KEY"
+
+api:
+  management:
+    header: "X-MANAGEMENT-API"
+    key: "GANDALF"

@@ -21,5 +21,10 @@ interface UserDataRepository : CrudRepository<UserDataEntity, UUID> {
         INSERT INTO user_data (uuid, email, password, salt, first_name, last_name, birth_date, photo_url)
         VALUES (:#{#data.uuid}, :#{#data.email}, :#{#data.password}, :#{#data.salt}, :#{#data.firstName}, :#{#data.lastName}, :#{#data.birthDate}, :#{#data.photoUrl})
         """)
-    fun save(@Param("data") userData: UserDataEntity)
+    fun addUser(@Param("data") userData: UserDataEntity)
+
+    @Query("""
+        SELECT email FROM user_data
+    """)
+    fun getUserEmails(): List<String>
 }

@@ -62,6 +62,10 @@ dependencies {
 	// WEB
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-configuration-processor")
+
+	// JACKSON
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 	// DATABASE
@@ -87,15 +91,15 @@ dependencies {
 
 	// gRPC
 	implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
-	api(platform("io.grpc:grpc-bom:1.68.0"))
-	api("io.grpc:grpc-api")
-	api("io.grpc:grpc-core")
-	api("io.grpc:grpc-protobuf")
-	api("io.grpc:grpc-kotlin-stub:1.4.1")
-	api("io.grpc:grpc-stub")
-	api("io.grpc:grpc-netty-shaded")
-	api("com.google.protobuf:protobuf-java-util:4.28.2")
-	api("com.google.protobuf:protobuf-kotlin:4.28.2")
+	implementation(platform("io.grpc:grpc-bom:1.68.0"))
+	implementation("io.grpc:grpc-api")
+	implementation("io.grpc:grpc-core")
+	implementation("io.grpc:grpc-protobuf")
+	implementation("io.grpc:grpc-kotlin-stub:1.4.1")
+	implementation("io.grpc:grpc-stub")
+	implementation("io.grpc:grpc-netty-shaded")
+	implementation("com.google.protobuf:protobuf-java-util:4.28.2")
+	implementation("com.google.protobuf:protobuf-kotlin:4.28.2")
 
 	// S3
 	implementation("io.minio:minio:8.5.13")
@@ -107,6 +111,9 @@ dependencies {
 	// KAFKA
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
+
+	// REFLECTION
+	implementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 kotlin {

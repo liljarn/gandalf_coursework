@@ -1,8 +1,8 @@
 package ru.liljarn.gandalf.api.rest
 
 import org.springframework.web.bind.annotation.*
-import ru.liljarn.gandalf.api.model.response.UserResponse
-import ru.liljarn.gandalf.domain.model.exception.UserUnauthorizedException
+import ru.liljarn.gandalf.api.model.request.ChangeProfileDataRequest
+import ru.liljarn.gandalf.api.model.response.UserProfileResponse
 import ru.liljarn.gandalf.domain.service.JwtService
 import ru.liljarn.gandalf.domain.service.user.UserService
 import java.util.*
@@ -10,23 +10,24 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1/user")
 class UserDataController(
-    private val userService: UserService, private val jwtService: JwtService
+    private val userService: UserService,
+    private val jwtService: JwtService
 ) {
 
     @GetMapping("/profile/self")
-    fun getData(@RequestHeader("Authorization") token: String?): UserResponse =
-        token?.replace("Bearer ", "")?.let { jwtToken ->
-            UserResponse(userService.getUserData(jwtService.getUserId(jwtToken)), true)
-        } ?: throw UserUnauthorizedException("User didn't provide personal token")
+    fun getData(@RequestHeader("Authorization") token: String): UserProfileResponse =
+        token.replace("Bearer ", "").let { jwtToken ->
+            userService.getUserProfileInfo(jwtService.getUserId(jwtToken))
+        }
 
     @GetMapping("/profile/{uuid}")
-    fun getUserProfileData(@RequestHeader("Authorization") token: String?, @PathVariable uuid: String): UserResponse =
-        userService.getUserData(UUID.fromString(uuid)).let { data ->
-            UserResponse(
-                userData = data,
-                self = token?.replace("Bearer ", "")?.let { jwtToken ->
-                    jwtService.getUserId(jwtToken) == data.uuid
-                } ?: false
-            )
+    fun getUserProfileData(@PathVariable uuid: String): UserProfileResponse =
+        userService.getUserProfileInfo(UUID.fromString(uuid))
+
+    @PutMapping("/profile/self")
+    fun editProfile(@RequestHeader("Authorization") token: String, @ModelAttribute req: ChangeProfileDataRequest) {
+        token.replace("Bearer ", "").let { jwtToken ->
+            userService.editProfile(jwtService.getUserId(jwtToken), req)
         }
+    }
 }
