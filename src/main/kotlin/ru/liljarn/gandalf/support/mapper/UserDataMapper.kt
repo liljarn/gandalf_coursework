@@ -5,7 +5,7 @@ import ru.liljarn.gandalf.domain.model.dto.UserData
 import ru.liljarn.gandalf.domain.model.entity.UserDataEntity
 
 fun UserDataEntity.toUserData() = UserData(
-    uuid = uuid,
+    userId = uuid,
     email = email,
     firstName = firstName,
     lastName = lastName,

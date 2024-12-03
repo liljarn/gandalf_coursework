@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.util.*
 
 data class UserData(
-    val uuid: UUID,
+    val userId: UUID,
     val email: String,
     val firstName: String,
     val lastName: String,

@@ -26,7 +26,7 @@ class UserDataGrpcService(
     private fun getUserInfo(userId: UUID) =
         userService.getUserData(userId).let {
             userDataResponse {
-                uuid = it.uuid.toString()
+                uuid = it.userId.toString()
                 email = it.email
                 firstName = it.firstName
                 lastName = it.lastName

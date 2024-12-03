@@ -38,7 +38,7 @@ class UserDataComponent(
     @Transactional
     fun getUserData(userUuid: UUID): UserData {
         val userDataEntity =
-            userDataRepository.findByUuid(userUuid) ?: throw UserNotFoundException("User with uuid=$userUuid not found")
+            userDataRepository.findByUuid(userUuid) ?: throw UserNotFoundException("User with userId=$userUuid not found")
         return userDataEntity.toUserData()
     }
 
@@ -50,7 +50,7 @@ class UserDataComponent(
     @Transactional
     fun editProfile(userUuid: UUID, data: ChangedProfileData) {
         val user = userDataRepository.findByUuid(userUuid)
-            ?: throw UserNotFoundException("User with uuid=$userUuid not found")
+            ?: throw UserNotFoundException("User with userId=$userUuid not found")
 
         userDataRepository.save(
             UserDataEntity(

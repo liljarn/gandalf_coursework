@@ -26,12 +26,6 @@ minio:
   access_key: gandalf
   secret_key: youshallnotpass
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /docs/swagger-ui
-
 kafka:
   topics:
     notification:
@@ -58,9 +52,9 @@ web-clients:
     booker:
       destination: http://localhost:8081
       headers:
-        X-INTERNAL-API: "GANDALF_INTERNAL_KEY"
+        X-INTERNAL-API: GANDALF_INTERNAL_KEY
 
 api:
   management:
-    header: "X-MANAGEMENT-API"
-    key: "GANDALF"
+    header: X-MANAGEMENT-API
+    key: GANDALF

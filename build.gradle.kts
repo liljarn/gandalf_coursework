@@ -104,10 +104,6 @@ dependencies {
 	// S3
 	implementation("io.minio:minio:8.5.13")
 
-	// SWAGGER
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
-	runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.8.0")
-
 	// KAFKA
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")

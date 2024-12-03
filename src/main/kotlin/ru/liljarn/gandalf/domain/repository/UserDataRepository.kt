@@ -18,8 +18,8 @@ interface UserDataRepository : CrudRepository<UserDataEntity, UUID> {
 
     @Modifying
     @Query("""
-        INSERT INTO user_data (uuid, email, password, salt, first_name, last_name, birth_date, photo_url)
-        VALUES (:#{#data.uuid}, :#{#data.email}, :#{#data.password}, :#{#data.salt}, :#{#data.firstName}, :#{#data.lastName}, :#{#data.birthDate}, :#{#data.photoUrl})
+        INSERT INTO user_data (user_id, email, password, salt, first_name, last_name, birth_date, photo_url)
+        VALUES (:#{#data.userId}, :#{#data.email}, :#{#data.password}, :#{#data.salt}, :#{#data.firstName}, :#{#data.lastName}, :#{#data.birthDate}, :#{#data.photoUrl})
         """)
     fun addUser(@Param("data") userData: UserDataEntity)
 
